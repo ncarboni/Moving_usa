@@ -92,7 +92,7 @@
     "photos": [
       "img/orange_1.JPG"
     ],
-    "condition": "perfect",
+    "condition": "Perfect",
     "object": "Presse Agrume"
   },
   {
@@ -104,7 +104,7 @@
       "img/bosch_1.JPG",
       "img/bosch_2.JPG"
     ],
-    "condition": "",
+    "condition": "Perfect",
     "object": "Batteur"
   },
   {
@@ -116,19 +116,19 @@
       "img/ aria_1.JPG",
       "img/aria_2.JPG"
     ],
-    "condition": "perfect",
+    "condition": "Perfect",
     "object": "Rafraichisseur d'air"
   },
   {
     "name": "Brother HL-L2350DW",
     "description": "La Brother HL-L2350DW est une imprimante laser monochrome compacte et efficace, idéale pour les besoins domestiques ou les petits bureaux. Elle offre une impression rapide jusqu’à 30 pages par minute, une connectivité sans fil (Wi-Fi) pour une impression directe depuis des appareils mobiles, et une fonction recto verso automatique pour économiser du papier. Son design compact et son faible niveau sonore en font un choix pratique pour les espaces restreints.",
     "price": "45",
-    "url": "",
+    "url": "https://store.brother.fr/catalogs/brotherfrance/appareils/laser/hl/hll2350dw",
     "photos": [
       "img/printer_1.JPG",
       "img/printer2.JPG"
     ],
-    "condition": "perfect",
+    "condition": "Perfect",
     "object": "Imprimante"
   },
   {
@@ -140,7 +140,30 @@
       "img/bike1.JPG",
       "img/bike2.JPG"
     ],
-    "condition": "perfect",
+    "condition": "Perfect",
     "object": "Vélo d'appartement Domyos 900"
+  },
+  {
+    "name": "Bosch MSM6150",
+    "description": "Le Bosch MSM6150 est un mixeur plongeant pratique et polyvalent, conçu pour faciliter la préparation de diverses recettes. Doté d’un moteur puissant de 400 W, il permet de mixer, mélanger et hacher avec efficacité. Son pied en acier inoxydable amovible est facile à nettoyer, tandis que sa conception ergonomique assure une prise en main confortable. Livré avec un gobelet gradué, cet appareil est idéal pour les soupes, sauces, smoothies et bien plus encore. Compact et fiable, il convient parfaitement aux besoins quotidiens en cuisine.",
+    "price": "5",
+    "url": "https://www.bosch-home.fr/fr/product/MSM6150",
+    "photos": [
+      "img/immersione_1.JPG"
+    ],
+    "condition": "Good",
+    "object": "Mixeur plongeant"
+  },
+  {
+    "name": "Poltronesofà Taneto 3",
+    "description": "Le TANETO est un canapé 2 places élégant et confortable. Ce modèle est équipé de 2 relax manuels, permettant d’incliner les dossiers et repose-pieds selon vos envies.",
+    "price": "250",
+    "url": "",
+    "photos": [
+      "img/couch_1.JPG",
+      "img/couch_2.JPG"
+    ],
+    "condition": "Perfect",
+    "object": "Canapé"
   }
 ]
