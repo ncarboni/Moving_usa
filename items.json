@@ -165,5 +165,18 @@
     ],
     "condition": "Perfect",
     "object": "Canapé"
+  },
+  {
+    "name": "Princess 162810",
+    "description": "Le Princess 162810 Raclette - Stone Grill Party 4 combine une pierre à cuire naturelle et un gril, permettant de saisir viandes, poissons et légumes sans ajout de matières grasses, pour une cuisine plus saine. Sa surface de cuisson carrée de 21 x 21 cm s’adapte parfaitement aux petites tables, offrant une utilisation pratique pour 2 à 4 personnes. L’appareil est équipé de 4 coupelles antiadhésives pour faire fondre du fromage ou préparer des omelettes et des crêpes. Avec une puissance de 600 watts et un thermostat réglable, il chauffe rapidement et maintient une température optimale. Facile à nettoyer, la plaque en pierre se nettoie avec un chiffon humide, et les coupelles passent au lave-vaisselle",
+    "price": "15",
+    "url": "https://www.amazon.fr/Princess-01-162810-01-001-Raclette-Stone-Grill/dp/B00OLZ1QHG?source=ps-sl-shoppingads-lpcontext&smid=A1X6FK5RDHNB96&gQT=1&th=1",
+    "photos": [
+      "img/raclette_1.JPG",
+      "img/raclette_2.JPG",
+      "img/raclette_3.JPG"
+    ],
+    "condition": "good",
+    "object": "Grill a raclette"
   }
 ]
