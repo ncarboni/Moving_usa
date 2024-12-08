@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Items for Sale</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <header class="bg-white shadow-lg sticky top-0 z-40">
+        <div class="container mx-auto px-4 py-4 sm:py-6">
+            <h1 class="text-2xl sm:text-3xl font-bold text-gray-800">Items for Sale</h1>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-4 sm:py-8">
+        <div id="items-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+            <!-- Items will be dynamically inserted here -->
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 overflow-y-auto">
+        <div class="min-h-screen flex flex-col">
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center p-4 bg-black bg-opacity-50 sticky top-0 z-10">
+                <h3 id="modalTitle" class="text-white text-lg sm:text-xl font-semibold truncate"></h3>
+                <button onclick="closeModal()" class="text-white p-2 hover:bg-gray-800 rounded-full">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+
+<!-- Modal Content -->
+<div class="flex-grow flex items-center justify-center p-4 relative">
+    <!-- Navigation Buttons remain the same -->
+    <button id="prevButton" class="text-white p-2 hover:bg-gray-800 rounded-full fixed left-4 top-1/2 transform -translate-y-1/2 z-10">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+    </button>
+
+<!-- Main Image Container -->
+<div class="w-full flex items-center justify-center relative">
+    <div class="relative group">
+        <img id="modalImage" src="" alt="" 
+            class="max-w-[min(60vw,600px)] max-h-[min(60vh,500px)] w-auto h-auto object-contain transition-transform duration-300" 
+            style="margin: auto;">
+        <!-- Zoom indicator - centered on image, shows on hover -->
+        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity">
+            <div class="text-white px-3 py-2 rounded text-sm flex items-center">
+                <svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"></path>
+                </svg>
+                Click to zoom
+            </div>
+        </div>
+    </div>
+</div>
+
+    <button id="nextButton" class="text-white p-2 hover:bg-gray-800 rounded-full fixed right-4 top-1/2 transform -translate-y-1/2 z-10">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+    </button>
+</div>
+
+            <!-- Thumbnails -->
+            <div class="bg-black bg-opacity-50 p-4 sticky bottom-0">
+                <div id="modalThumbnails" class="flex gap-2 overflow-x-auto pb-2 snap-x custom-scrollbar">
+                    <!-- Thumbnails will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-gray-800 text-white mt-8">
+        <div class="container mx-auto px-4 py-6">
+            <p class="text-center">Contact for more information or to arrange a viewing.</p>
+        </div>
+    </footer>
+
+    <script>
+let currentPhotoIndex = 0;
+let currentPhotos = [];
+let resetZoom;
+
+// Add event listeners after DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize modal elements
+    const modal = document.getElementById('imageModal');
+    const prevButton = document.getElementById('prevButton');
+    const nextButton = document.getElementById('nextButton');
+
+    // Setup zoom functionality
+    resetZoom = setupImageZoom();
+
+    // Add event listeners
+    modal.addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeModal();
+        }
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (!modal.classList.contains('hidden')) {
+            switch(e.key) {
+                case 'Escape':
+                    closeModal();
+                    break;
+                case 'ArrowLeft':
+                    previousImage();
+                    break;
+                case 'ArrowRight':
+                    nextImage();
+                    break;
+            }
+        }
+    });
+
+    prevButton.addEventListener('click', previousImage);
+    nextButton.addEventListener('click', nextImage);
+
+    // Load items
+    loadItems();
+});
+
+function setupImageZoom() {
+    const modalImage = document.getElementById('modalImage');
+    const zoomIndicator = modalImage.parentElement.querySelector('.group-hover\\:opacity-100 .text-white');
+    let isZoomed = false;
+
+    modalImage.parentElement.addEventListener('click', function() {
+        if (!isZoomed) {
+            // Zoom in
+            modalImage.style.maxWidth = '90vw';
+            modalImage.style.maxHeight = '90vh';
+            zoomIndicator.innerHTML = `
+                <svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"></path>
+                </svg>
+                Click to reset
+            `;
+        } else {
+            // Zoom out
+            modalImage.style.maxWidth = 'min(60vw, 600px)';
+            modalImage.style.maxHeight = 'min(60vh, 500px)';
+            zoomIndicator.innerHTML = `
+                <svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"></path>
+                </svg>
+                Click to zoom
+            `;
+        }
+        isZoomed = !isZoomed;
+    });
+
+    // Reset zoom state when changing images
+    return function resetZoom() {
+        isZoomed = false;
+        modalImage.style.maxWidth = 'min(60vw, 600px)';
+        modalImage.style.maxHeight = 'min(60vh, 500px)';
+        zoomIndicator.innerHTML = `
+            <svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"></path>
+            </svg>
+            Click to zoom
+        `;
+    };
+}
+
+async function loadItems() {
+    try {
+        const response = await fetch('items.json');
+        const items = await response.json();
+        const grid = document.getElementById('items-grid');
+        
+        items.forEach(item => {
+            const itemElement = createItemElement(item);
+            grid.appendChild(itemElement);
+        });
+    } catch (error) {
+        console.error('Error loading items:', error);
+    }
+}
+
+function createItemElement(item) {
+    const div = document.createElement('div');
+    div.className = 'bg-white rounded-lg shadow-md overflow-hidden cursor-pointer transform transition hover:scale-105 hover:shadow-xl';
+    
+    // Sort photos to ensure _1 comes first
+    const sortedPhotos = [...(item.photos || [])].sort((a, b) => {
+        const aHasOne = a.includes('_1');
+        const bHasOne = b.includes('_1');
+        return bHasOne - aHasOne;
+    });
+
+    const defaultImage = '/api/placeholder/400/300';
+    const mainImage = sortedPhotos.length > 0 ? sortedPhotos[0] : defaultImage;
+    
+    // Create a data attribute to store the photos array
+    div.dataset.photos = JSON.stringify(sortedPhotos);
+    div.dataset.name = item.name;
+    
+    div.innerHTML = `
+        <div class="relative group aspect-w-4 aspect-h-3">
+            <img src="${mainImage}" alt="${item.name}" class="w-full h-48 sm:h-56 object-cover"/>
+            ${sortedPhotos.length > 1 ? `
+                <div class="absolute bottom-2 right-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-sm">
+                    +${sortedPhotos.length - 1} photos
+                </div>
+            ` : ''}
+        </div>
+        <div class="p-4">
+            <h2 class="text-xl font-semibold mb-2 line-clamp-1">${item.name}</h2>
+            <p class="text-gray-600 mb-4 text-sm line-clamp-3">${item.description}</p>
+            <div class="flex justify-between items-center">
+                <span class="text-2xl font-bold text-green-600">${item.price}€</span>
+                <div class="flex items-center gap-2">
+                    <span class="text-sm text-gray-500">${item.condition}</span>
+                    ${item.url ? `<a href="${item.url}" target="_blank" class="text-blue-500 hover:text-blue-700 text-sm" onclick="event.stopPropagation()">More Info</a>` : ''}
+                </div>
+            </div>
+        </div>
+    `;
+
+    div.addEventListener('click', function() {
+        const photos = JSON.parse(this.dataset.photos);
+        openModal(this.dataset.name, photos);
+    });
+    
+    return div;
+}
+
+function openModal(itemName, photos) {
+    if (!photos || photos.length === 0) return;
+
+    currentPhotos = photos;
+    currentPhotoIndex = 0;
+
+    const modal = document.getElementById('imageModal');
+    const modalTitle = document.getElementById('modalTitle');
+    
+    modalTitle.textContent = itemName;
+    updateModalContent();
+
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    updateNavigationButtons();
+}
+
+function updateModalContent() {
+    const modalImage = document.getElementById('modalImage');
+    const thumbnailsContainer = document.getElementById('modalThumbnails');
+    
+    modalImage.src = currentPhotos[currentPhotoIndex];
+    modalImage.alt = `Photo ${currentPhotoIndex + 1}`;
+
+    // Reset zoom state when changing images
+    if (resetZoom) resetZoom();
+
+    thumbnailsContainer.innerHTML = currentPhotos.map((photo, index) => `
+        <img src="${photo}" 
+             alt="Photo ${index + 1}" 
+             onclick="changeModalImage(${index})"
+             class="w-16 h-16 sm:w-20 sm:h-20 object-cover cursor-pointer rounded hover:opacity-75 transition snap-start
+                   ${index === currentPhotoIndex ? 'ring-2 ring-blue-500' : ''}"
+        >
+    `).join('');
+
+    updateNavigationButtons();
+}
+
+function changeModalImage(index) {
+    currentPhotoIndex = index;
+    updateModalContent();
+}
+
+function nextImage() {
+    if (currentPhotoIndex < currentPhotos.length - 1) {
+        currentPhotoIndex++;
+        updateModalContent();
+    }
+}
+
+function previousImage() {
+    if (currentPhotoIndex > 0) {
+        currentPhotoIndex--;
+        updateModalContent();
+    }
+}
+
+function updateNavigationButtons() {
+    const prevButton = document.getElementById('prevButton');
+    const nextButton = document.getElementById('nextButton');
+    
+    prevButton.style.display = currentPhotoIndex > 0 ? 'block' : 'none';
+    nextButton.style.display = currentPhotoIndex < currentPhotos.length - 1 ? 'block' : 'none';
+}
+
+function closeModal() {
+    const modal = document.getElementById('imageModal');
+    modal.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+    currentPhotos = [];
+    currentPhotoIndex = 0;
+    if (resetZoom) resetZoom();
+}
+    </script>
+</body>
+
+</html>
