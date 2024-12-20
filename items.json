@@ -121,13 +121,13 @@
   {
     "name": "Domyos 900",
     "description": "Le Domyos 900 est un vélo d’appartement haut de gamme conçu pour une utilisation régulière, jusqu’à 10 heures par semaine. Il se distingue par son système d’auto-alimentation, éliminant le besoin de branchement électrique et offrant une liberté totale de placement. Sa selle ultra-confortable et son cadre bas permettent une posture droite, assurant un confort optimal lors de vos séances. Équipé d’une roue d’inertie de 8 kg, il garantit une fluidité de pédalage sans à-coups. La console intégrée propose 24 programmes d’entraînement variés et est compatible avec des applications de coaching, vous permettant de suivre vos performances en temps réel. Ce vélo est idéal pour perdre du poids, maintenir la forme ou améliorer ses performances.",
-    "price": "300",
+    "price": "150",
     "url": "https://www.decathlon.fr/p/velo-d-appartement-900-auto-alimente-et-connecte-aux-applications-de-coaching/_/R-p-306636",
     "photos": [
       "img/bike1.JPG",
       "img/bike2.JPG"
     ],
-    "condition": "Perfect",
+    "condition": "Missing one pedal cage",
     "object": "Vélo d'appartement Domyos 900"
   },
   {
