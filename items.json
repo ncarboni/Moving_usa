@@ -36,18 +36,6 @@
     "object": "TV 65\" 4k"
   },
   {
-    "name": "Ninja Foodi Power Nutri Blender 2-en-1",
-    "description": "Ce blender Ninja révolutionnaire combine 2 appareils en 1. En associant les programmes intelligents Auto-iQ à son puissant moteur Smart Torque de 1100 W, il vous permet de passer d’une texture épaisse et tartinable à une texture légère et veloutée d’une simple pression sur un bouton.Certains blenders ont du mal à travailler les mélanges épais et peuvent s’arrêter en cours d'utilisation. Notre moteur Smart Torque vous permet de mixer les ingrédients les plus denses sans jamais se bloquer et sans que vous n’ayez besoin de remuer votre mélange.",
-    "price": "60",
-    "url": "https://www.amazon.fr/dp/B08X1YLBVR",
-    "photos": [
-      "img/ninja_1.JPG",
-      "img/ninja_2.JPG"
-    ],
-    "condition": "Perfect",
-    "object": "Blender"
-  },
-  {
     "name": "Fondue MFD208-17",
     "description": "La Mandine MFD208-17 est une fondue électrique noire et violette, idéale pour des moments conviviaux jusqu’à huit personnes. Avec une puissance de 800 W et un thermostat réglable, elle assure une cuisson précise et homogène. Son caquelon amovible de 1,8 litre, doté d’un revêtement antiadhésif, facilite le service et le nettoyage. Livrée avec huit fourchettes colorées, trois coupelles et un support de rangement, elle est parfaite pour des soirées fondue réussies",
     "price": "20",
@@ -81,18 +69,6 @@
     ],
     "condition": "Perfect",
     "object": "Presse Agrume"
-  },
-  {
-    "name": "Bosch CleverMixx 300 W",
-    "description": "Le Batteur Bosch CleverMixx 300 W en blanc et rouge est un outil de cuisine polyvalent, idéal pour fouetter, battre et pétrir diverses préparations. Avec une puissance de 300 watts, il offre deux vitesses ajustables et une fonction turbo pour s’adapter à vos besoins culinaires. Son design ergonomique assure une prise en main confortable, tandis que les accessoires en acier inoxydable, comprenant deux fouets et deux crochets pétrisseurs, garantissent des performances durables. Les accessoires sont compatibles avec le lave-vaisselle, facilitant ainsi le nettoyage après utilisation. ￼",
-    "price": "5",
-    "url": "https://www.amazon.fr/Bosch-MFQ3010-Batteur-Access-Vitesses/dp/B0012CQC2K",
-    "photos": [
-      "img/bosch_1.JPG",
-      "img/bosch_2.JPG"
-    ],
-    "condition": "Perfect",
-    "object": "Batteur"
   },
   {
     "name": "Livoo DOM389",
